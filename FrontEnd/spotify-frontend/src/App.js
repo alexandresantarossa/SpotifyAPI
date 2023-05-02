@@ -31,14 +31,16 @@ class App extends React.Component{
     $.ajax({
     method: "GET",
     dataType: "Json",
-    url:"https://api.spotify.com/v1/artists/4q3ewBCX7sLwd24euuV69X/top-tracks?market=BR",
-    headers: {
+    url:"https://api.spotify.com/v1/me/top/tracks?limit=5",
+    headers: {  
     Authorization: `Bearer ${this.state.token}`
     }
   })
     .then(dados => {
-      console.log(this.state.token)
-      console.log(dados)
+      // console.log(dados.items)
+      for(let i = 0; i < dados.items.length; i++){
+        console.log(dados.items[i].name)
+      }
       
       })
   }
@@ -52,7 +54,7 @@ class App extends React.Component{
     return (
       <div className="App">
         <button> <a href="http://localhost:8888">Logar com Spotify</a> </button>
-        <button onClick={this.topTracksLorde}>Buscar top tracks da Lorde</button>
+        <button onClick={this.topTracksLorde}>tracks mais escutadas</button>
         <button onClick={this.qualtoken}>token</button>
       </div>
     );
