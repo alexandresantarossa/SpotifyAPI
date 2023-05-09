@@ -1,0 +1,95 @@
+body {
+  background-color: #212125;
+  overflow: hidden;
+}
+
+/* Estilo para o container principal */
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+  }
+  
+  /* Estilo para a seção de login */
+  #login {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 2rem;
+    color: #fff;
+
+  }
+  
+  /* Estilo para o título da seção de login */
+  #login h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    text-align: center;
+    color: #fff;
+
+  }
+  
+  /* Estilo para o botão de login */
+  #login a {
+    display: inline-block;
+    border: none;
+    border-radius: 50px;
+    font-size: 16px;
+    line-height: 1;
+    padding: 12px 24px;
+    text-align: center;
+    text-decoration: none;
+    background: #1db954;
+    color: #fff;
+    transition: background-color 0.2s ease;
+    cursor: pointer;
+  }
+  
+  /* Estilo para o parágrafo após o botão de login */
+  #login p:last-of-type {
+    margin-top: 1rem;
+    text-align: center;
+    color: #fff;
+
+  }
+  
+  
+  /* Estilo para o botão de obtenção de novo token */
+  #obtain-new-token {
+    padding: 0.5rem 1rem;
+    color: #1db954;
+    border: 1px solid #1db954;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    font-size: 1rem;
+    margin-top: 1rem;
+  }
+  
+  /* Estilo para o perfil do usuário */
+  #user-profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* Estilo para o componente OAuth */
+  #oauth {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .credits {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: #999;
+    margin-bottom: 5rem;
+  }

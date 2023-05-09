@@ -1,3 +1,60 @@
+body {
+  background-color: #212125;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2rem;
+  color: #fff;
+}
+
+.btn-primary {
+  display: inline-block;
+  border: none;
+  border-radius: 50px;
+  font-size: 16px;
+  line-height: 1;
+  padding: 12px 24px;
+  text-align: center;
+  text-decoration: none;
+  background: #1db954;
+  color: #fff;
+  transition: background-color 0.2s ease;
+  cursor: pointer;
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+  background-color: #1ed760;
+  outline: none;
+}
+
+.btn {
+  display: inline-block;
+  border: none;
+  border-radius: 50px;
+  font-size: 16px;
+  line-height: 1;
+  padding: 12px 24px;
+  text-align: center;
+  text-decoration: none;
+  background: #1db954;
+  color: #fff;
+  transition: background-color 0.2s ease;
+  cursor: pointer;
+  margin: 10px;
+}
+
+.btn:hover,
+.btn:focus {
+  background-color: #1ed760;
+  outline: none;
+}
+
+
 .App {
   text-align: center;
 }
@@ -35,4 +92,49 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.tracks {
+  margin-top: 20px;
+  color: #fff;
+}
+
+.tracks h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.tracks ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.tracks li {
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+
+.credits {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  color: #999;
+  margin-top: 28rem;
 }

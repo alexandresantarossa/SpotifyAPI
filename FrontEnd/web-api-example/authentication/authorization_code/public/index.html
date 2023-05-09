@@ -1,26 +1,20 @@
 <!doctype html>
 <html>
   <head>
-    <title>Example of the Authorization Code flow with Spotify</title>
+    <title>TecWeb Songs</title>
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-    <style type="text/css">
-      #login, #loggedin {
-        display: none;
-      }
-      .text-overflow {
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        width: 500px;
-      }
+    <link rel="stylesheet" type="text/css" href="index.css">
+
     </style>
   </head>
 
   <body>
     <div class="container">
       <div id="login">
-        <h1>This is an example of the Authorization Code flow</h1>
-        <a href="/login" class="btn btn-primary">Log in with Spotify</a>
+        <h1><b>Faça login com a sua conta do Spotify</h1></b>
+        <p>Para usar os nosso recursos, você precisa fazer login com a sua conta do Spotify.</p>
+        <a href="/login" class="btn btn-primary">Login com Spotify</a>
+        <p>Você será redirecionado para outra página</p>
       </div>
       <div id="loggedin">
         <div id="user-profile">
@@ -29,7 +23,12 @@
         </div>
         <button class="btn btn-default" id="obtain-new-token">Obtain new token using the refresh token</button>
       </div>
+      <div class="credits">
+        <p>Powered by KNBS 💀</p>
+      </div>
     </div>
+    
+
 
     <script id="user-profile-template" type="text/x-handlebars-template">
       <h1>Logged in as {{display_name}}</h1>
