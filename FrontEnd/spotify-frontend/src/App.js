@@ -20,6 +20,7 @@ class App extends React.Component {
     const parametros = this.getHashParams();
     const token = parametros.access_token;
     const nome = parametros.name;
+    
     this.state = {
       token: token,
       topTracks: [], // state para armazenar as principais músicas
@@ -44,7 +45,7 @@ class App extends React.Component {
       },
       success: dados => {
         this.setState({ topTracks: dados.items }); // atualiza o state com as principais músicas
-      
+
       },
       error: (xhr, status, error) => {
         console.log(xhr);
@@ -54,11 +55,51 @@ class App extends React.Component {
     });
   }
 
-  apitecweb = () =>{
+  apitecwebPOST = () =>{
+    if (!this.state.topTracks.length) {
+      console.log("Lista de músicas não encontrada.");
+      return;
+    }
+  
+    const maisEscutada = this.state.topTracks[0]; // seleciona a música mais ouvida
+    const data = {
+      title: maisEscutada.name,
+      artist: maisEscutada.artists[0].name
+    }; // cria um objeto com as informações da música mais ouvida
+  
     $.ajax({
       method: "POST",
       dataType: "Json",
       url:"http://localhost:8000/api/musics/",
+      headers: {},
+      data: data,
+      success: () => {
+        console.log("Música enviada com sucesso.");
+      },
+      error: (xhr, status, error) => {
+        console.log(xhr);
+        console.log(status);
+        console.log(error);
+        console.log("DEU PAU BRO");
+      }
+    })
+  }
+  
+  apitecwebGET = () =>{
+    
+    $.ajax({
+      method: "GET",
+      dataType: "Json",
+      url:"http://localhost:8000/api/musics/",
+      headers: {},
+      success: dados => {
+        console.log(dados);
+      },
+      error: (xhr, status, error) => {
+        console.log(xhr);
+        console.log(status);
+        console.log(error);
+      }
     })
 
   }
@@ -82,7 +123,7 @@ class App extends React.Component {
         )}
         <button className="btn btn-primary" onClick={() => window.location.href = "http://localhost:8888"}>Logar com Spotify</button>
         <button className="btn btn-primary" onClick={this.topTracksLorde}>Veja suas principais músicas</button>
-        <button className="btn btn-primary" onClick={this.qualtoken}>Confira o seu Token</button>
+        <button className="btn btn-primary" onClick={this.apitecwebPOST}>Adicionar a base de dados</button>
         {this.state.topTracks.length > 0 && (
           <div className="tracks">
             <h2>Suas principais músicas são:</h2>
@@ -93,7 +134,7 @@ class App extends React.Component {
             </ul>
           </div>
         )}
-      <div class="credits">
+      <div className="credits">
       <p>Powered by KNBS 💀</p>
       </div>      
     </div>
