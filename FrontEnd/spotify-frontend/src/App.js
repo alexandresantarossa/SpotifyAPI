@@ -38,12 +38,13 @@ class App extends React.Component {
     $.ajax({
       method: "GET",
       dataType: "Json",
-      url:"https://api.spotify.com/v1/me/top/tracks?limit=5",
+      url:"https://api.spotify.com/v1/me/top/tracks?time_range=long_term&limit=10",
       headers: {  
         Authorization: `Bearer ${this.state.token}`
       },
       success: dados => {
         this.setState({ topTracks: dados.items }); // atualiza o state com as principais músicas
+      
       },
       error: (xhr, status, error) => {
         console.log(xhr);
@@ -51,6 +52,15 @@ class App extends React.Component {
         console.log(error);
       }
     });
+  }
+
+  apitecweb = () =>{
+    $.ajax({
+      method: "POST",
+      dataType: "Json",
+      url:"http://localhost:8000/api/musics/",
+    })
+
   }
 
   qualtoken() {
@@ -78,7 +88,7 @@ class App extends React.Component {
             <h2>Suas principais músicas são:</h2>
             <ul>
               {this.state.topTracks.map((track, index) => (
-                <li key={index}>{track.name}</li>
+                <li key={index}>{track.name} - {track.artists[0].name}</li>
               ))}
             </ul>
           </div>
