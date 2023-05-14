@@ -153,7 +153,12 @@ class App extends React.Component {
     return (
       <div className="App">
         <div className="header">
-          <h1>TecWeb Songs</h1>
+          <div className="title">
+            <h1 className="title-text">TecWeb Songs</h1>
+            <div className="logo-container">
+              <img src="logo.png" alt="Logo" className="logo" />
+            </div>
+          </div>
           <p>
             Feito na disciplina de Tecnologias Web, nosso site te mostra as suas músicas mais ouvidas no Spotify. Para
             isso, basta logar com sua conta e clicar no botão "Veja suas principais músicas".
@@ -193,6 +198,13 @@ class App extends React.Component {
                       {index === 0 ? "🥇" : index === 1 ? "🥈" : "🥉"}
                     </span>
                   )}
+                  <a
+                    href={`https://open.spotify.com/track/${track.id}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <div className="spotify-logo"></div>
+                  </a>
                 </li>
               ))}
             </ol>
@@ -219,6 +231,7 @@ class App extends React.Component {
         )}
         <div className="credits">
           <p>Powered by KNBS 💀</p>
+          <p>We are not related to Spotify AB or any of it's partners in any way</p>
         </div>
       </div>
     );
