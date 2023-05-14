@@ -215,11 +215,11 @@ body {
 
 .spotify-logo {
   display: inline-block;
-  width: 1.5rem; /* Ajuste o tamanho conforme necessário */
-  height: 1.1rem; /* Ajuste o tamanho conforme necessário */
-  background-image: url(logoSpot.png); /* Caminho para a imagem do logotipo do Spotify */
+  width: 2rem; /* Ajuste o tamanho conforme necessário */
+  height: 1.5rem; /* Ajuste o tamanho conforme necessário */
+  background-image: url(logoSpot2.png); /* Caminho para a imagem do logotipo do Spotify */
   background-size: cover;
   cursor: pointer;
-  margin-left: 5px;
+  margin-left: 0px;
 }
 
