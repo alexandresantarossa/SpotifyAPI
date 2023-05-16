@@ -28,15 +28,71 @@ class App extends React.Component {
       nome: nome, // nome do usuário
       albumCovers: [], // state para armazenar as capas dos álbuns
       timeRange: "long_term", // Valor padrão: long_term (all-time)
+      topArtists: [], // state para armazenar os artistas mais ouvidos
+      artistCovers: [], // state para armazenar as capas dos artistas
     };
 
     this.topTracksLorde = this.topTracksLorde.bind(this);
     this.apitecwebPOST = this.apitecwebPOST.bind(this);
+    this.topArtists = this.topArtists.bind(this);
   }
 
   handleTimeRangeChange = (event) => {
     this.setState({ timeRange: event.target.value });
   };
+  topArtists = () => {
+    const { timeRange } = this.state;
+    const url = `https://api.spotify.com/v1/me/top/artists?time_range=${timeRange}&limit=10`;
+    if (!this.state.token) {
+      console.log("Token não fornecido.");
+      return;
+    }
+    $.ajax({
+      method: "GET",
+      dataType: "json",
+      url: url,
+      headers: {
+        Authorization: `Bearer ${this.state.token}`,
+      },
+      success: (dados) => {
+        this.setState({ topArtists: dados.items }); // atualiza o state com os artistas mais ouvidos
+        console.log(dados.items);
+        const artistIds = dados.items.map((artist) => artist.id);
+        this.getArtistCovers(artistIds); // Call getArtistCovers instead of topArtists
+      },
+      error: (xhr, status, error) => {
+        console.log(xhr);
+        console.log(status);
+        console.log(error);
+      },
+    });
+  };
+  
+  getArtistCovers = (artistIds) => {
+    if (!this.state.token) {
+      console.log("Token não fornecido.");
+      return;
+    }
+    $.ajax({
+      method: "GET",
+      dataType: "json",
+      url: `https://api.spotify.com/v1/artists?ids=${artistIds.join(",")}`,
+      headers: {
+        Authorization: `Bearer ${this.state.token}`,
+      },
+      success: (dados) => {
+        const artistCovers = dados.artists.map((artist) => artist.images[0].url);
+        this.setState({ artistCovers: artistCovers });
+        console.log(artistCovers);
+      },
+      error: (xhr, status, error) => {
+        console.log(xhr);
+        console.log(status);
+        console.log(error);
+      },
+    });
+  };
+  
 
   topTracksLorde = () => {
     const { timeRange } = this.state;
@@ -149,6 +205,9 @@ class App extends React.Component {
     // Divide as capas em duas fileiras
     const albumCoversRow1 = this.state.albumCovers.slice(0, 5);
     const albumCoversRow2 = this.state.albumCovers.slice(5, 10);
+    
+    const artistCoversRow1 = this.state.artistCovers.slice(0, 5);
+    const artistCoversRow2 = this.state.artistCovers.slice(5, 10);
 
     return (
       <div className="App">
@@ -174,6 +233,9 @@ class App extends React.Component {
           </button>
           <button className="btn btn-primary" onClick={this.apitecwebPOST}>
             Adicionar a base de dados
+          </button>
+          <button className="btn btn-primary" onClick={this.topArtists}>
+            Veja seus artistas mais ouvidos
           </button>
         </div>
         <div>
@@ -210,6 +272,30 @@ class App extends React.Component {
             </ol>
           </div>
         )}
+        {this.state.topArtists.length > 0 && (
+          <div className="tracks">
+            <h2>Seus artistas mais ouvidos são:</h2>
+            <ol>
+              {this.state.topArtists.map((artist, index) => (
+                <li key={index}>
+                  {artist.name}
+                  {index < 3 && (
+                    <span role="img" aria-label="medal">
+                      {index === 0 ? "🥇" : index === 1 ? "🥈" : "🥉"}
+                    </span>
+                  )}
+                  <a
+                    href={`https://open.spotify.com/artist/${artist.id}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <div className="spotify-logo"></div>
+                  </a>
+                </li>
+              ))}
+            </ol>
+          </div>
+        )}
         {this.state.albumCovers.length > 0 && (
           <div className="album-covers">
             <div className="row">
@@ -223,6 +309,25 @@ class App extends React.Component {
               {/* Segunda fileira */}
               <div className="col">
                 {albumCoversRow2.map((cover, index) => (
+                  <img key={index} src={cover} alt={`Capa do Álbum ${index + 6}`} />
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+        {this.state.artistCovers.length > 0 && (
+          <div className="album-covers">
+            <div className="row">
+              {/* Primeira fileira */}
+              <div className="col">
+                {artistCoversRow1.map((cover, index) => (
+                  <img key={index} src={cover} alt={`Capa do Álbum ${index + 1}`} />
+                ))}
+              </div>
+
+              {/* Segunda fileira */}
+              <div className="col">
+                {artistCoversRow2.map((cover, index) => (
                   <img key={index} src={cover} alt={`Capa do Álbum ${index + 6}`} />
                 ))}
               </div>
