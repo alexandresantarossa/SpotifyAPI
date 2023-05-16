@@ -6,6 +6,7 @@ Nosso site possui uma integração com o usuário onde o mesmo conecta sua conta
 
 Projeto 3:
 Temos o objetivo de aprimorar o nosso site adicionando novas funcionalidades e melhorando as funcionalidades já existentes
+
 Sprint 1:
 - [x] 11/05 -> Decisão das funcionalidades que irão ser implementadas 
   - As 3 novas funcionalidades escolhidas foram:
@@ -23,4 +24,5 @@ Sprint 3:
 - [ ] 25/05 -> 3ª funcionalidade implementada
 - [ ] 30/05 -> Deploy e ajustes finais
 
-- [ ] 31/05 -> Entrega final
+
+- [ ] <b>31/05 -> Entrega final<b>
