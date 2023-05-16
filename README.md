@@ -12,7 +12,7 @@ Sprint 1:
     - 1a funcionalidade -> Listar os 10 artistas mais ouvidos do usuário
     - 2a funcionalidade -> Mostrar as informações do usuário após realizar o login
     - 3a funcionalidade -> Montar uma playlist com músicas semelhantes as principais músicas do usuário
-- [ ] 16/05 -> 1a funcionalidade implementadas 
+- [ ] 16/05 -> 1a funcionalidade implementada 
 - [ ] 16/05 -> Permissão do Spotify
 
 Sprint 2:
