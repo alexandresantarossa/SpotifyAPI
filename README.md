@@ -9,18 +9,18 @@ Temos o objetivo de aprimorar o nosso site adicionando novas funcionalidades e m
 Sprint 1:
 - [x] 11/05 -> Decisão das funcionalidades que irão ser implementadas 
   - As 3 novas funcionalidades escolhidas foram:
-    - 1a funcionalidade -> Listar os 10 artistas mais ouvidos do usuário
-    - 2a funcionalidade -> Mostrar as informações do usuário após realizar o login
-    - 3a funcionalidade -> Montar uma playlist com músicas semelhantes as principais músicas do usuário
-- [ ] 16/05 -> 1a funcionalidade implementada 
+    - 1ª funcionalidade -> Listar os 10 artistas mais ouvidos do usuário
+    - 2ª funcionalidade -> Mostrar as informações do usuário após realizar o login
+    - 3ª funcionalidade -> Montar uma playlist com músicas semelhantes as principais músicas do usuário
+- [ ] 16/05 -> 1ª funcionalidade implementada 
 - [ ] 16/05 -> Permissão do Spotify
 
 Sprint 2:
-- [ ] 18/05 -> 2a funcionalidade implementada
+- [ ] 18/05 -> 2ª funcionalidade implementada
 - [ ] 23/05 -> Começar 3a funcionalidade  
 
 Sprint 3:
-- [ ] 25/05 -> 3a funcionalidade implementada
+- [ ] 25/05 -> 3ª funcionalidade implementada
 - [ ] 30/05 -> Deploy e ajustes finais
 
 - [ ] 31/05 -> Entrega final
