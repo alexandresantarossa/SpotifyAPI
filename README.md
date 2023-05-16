@@ -11,7 +11,7 @@ Temos o objetivo de aprimorar o nosso site adicionando novas funcionalidades e m
     - 1a funcionalidade -> Listar os 10 artistas mais ouvidos do usuário
     - 2a funcionalidade -> Mostrar as informações do usuário após realizar o login
     - 3a funcionalidade -> Montar uma playlist com músicas semelhantes as principais músicas do usuário
-- [ ] 15/05 e 18/05 -> 1a e 2a funcionalidades implementadas 
-- [ ] 22/05 e 25/05 -> 3a funcionalidade implementada
-- [ ] 29/05 e 31/05 -> Deploy e ajustes finais
+- [ ] 16/05 e 18/05 -> 1a e 2a funcionalidades implementadas 
+- [ ] 23/05 e 25/05 -> 3a funcionalidade implementada
+- [ ] 30/05 e 31/05 -> Deploy e ajustes finais
 - [ ] 31/05 -> Entrega final
