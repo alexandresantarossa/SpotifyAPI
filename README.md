@@ -17,7 +17,7 @@ Sprint 1:
 
 Sprint 2:
 - [ ] 18/05 -> 2ª funcionalidade implementada
-- [ ] 23/05 -> Começar 3a funcionalidade  
+- [ ] 23/05 -> Começar 3ª funcionalidade  
 
 Sprint 3:
 - [ ] 25/05 -> 3ª funcionalidade implementada
