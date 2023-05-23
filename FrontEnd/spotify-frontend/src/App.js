@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import $ from "jquery";
 import "./App.css";
 
@@ -30,11 +30,13 @@ class App extends React.Component {
       timeRange: "long_term", // Valor padrão: long_term (all-time)
       topArtists: [], // state para armazenar os artistas mais ouvidos
       artistCovers: [], // state para armazenar as capas dos artistas
+      exibirModal: false, // state para controlar a exibição do modal
     };
 
     this.topTracksLorde = this.topTracksLorde.bind(this);
     this.apitecwebPOST = this.apitecwebPOST.bind(this);
     this.topArtists = this.topArtists.bind(this);
+    this.login = this.login.bind(this);
   }
 
   handleTimeRangeChange = (event) => {
@@ -67,7 +69,7 @@ class App extends React.Component {
       },
     });
   };
-  
+
   getArtistCovers = (artistIds) => {
     if (!this.state.token) {
       console.log("Token não fornecido.");
@@ -92,7 +94,7 @@ class App extends React.Component {
       },
     });
   };
-  
+
 
   topTracksLorde = () => {
     const { timeRange } = this.state;
@@ -125,6 +127,28 @@ class App extends React.Component {
     });
   };
 
+  login = () => {
+    if (!this.state.token) {
+      console.log("Token não fornecido.");
+      return;
+    }
+    $.ajax({
+      method: "GET",
+      dataType: "json",
+      url: `https://api.spotify.com/v1/me`,
+      headers: {
+        Authorization: `Bearer ${this.state.token}`,
+      },
+      success: (dados) => {
+        console.log(dados);
+      },
+      error: (xhr, status, error) => {
+        console.log(xhr);
+        console.log(status);
+        console.log(error);
+      },
+    });
+  };
   getAlbumCovers = (albumIds) => {
     if (!this.state.token) {
       console.log("Token não fornecido.");
@@ -161,7 +185,7 @@ class App extends React.Component {
       title: maisEscutada.name,
       artist: maisEscutada.artists[0].name,
     }; // cria um objeto com as informações da música mais ouvida
-    
+
     $.ajax({
       method: "POST",
       dataType: "json",
@@ -178,7 +202,7 @@ class App extends React.Component {
         console.log("DEU PAU BRO");
       },
     });
-    
+
   }
 
   apitecwebGET = () => {
@@ -197,7 +221,9 @@ class App extends React.Component {
       },
     });
   }
-
+  controlarModal = () => {
+    this.setState({exibirModal: !this.state.exibirModal})
+  } 
   qualtoken() {
     console.log(this.state.token);
   }
@@ -205,24 +231,28 @@ class App extends React.Component {
     // Divide as capas em duas fileiras
     const albumCoversRow1 = this.state.albumCovers.slice(0, 5);
     const albumCoversRow2 = this.state.albumCovers.slice(5, 10);
-    
+
     const artistCoversRow1 = this.state.artistCovers.slice(0, 5);
     const artistCoversRow2 = this.state.artistCovers.slice(5, 10);
 
     return (
       <div className="App">
         <div className="header">
+          <div>
+            <button className="login" onClick={() => { this.login(); this.controlarModal(); }}>Perfil</button>
+            {this.state.exibirModal&&<div className="quadro_log" onMouseLeave={this.controlarModal}>a</div>}
+          </div>
           <div className="title">
             <h1 className="title-text">TecWeb Songs</h1>
             <div className="logo-container">
               <img src="logo.png" alt="Logo" className="logo" />
             </div>
           </div>
-          <p>
-            Feito na disciplina de Tecnologias Web, nosso site te mostra as suas músicas mais ouvidas no Spotify. Para
-            isso, basta logar com sua conta e clicar no botão "Veja suas principais músicas".
-          </p>
         </div>
+        <p className="texto">
+          Feito na disciplina de Tecnologias Web, nosso site te mostra as suas músicas mais ouvidas no Spotify. Para
+          isso, basta logar com sua conta e clicar no botão "Veja suas principais músicas".
+        </p>
         <div className="buttons">
           {this.state.nome && <h2>Olá, {this.state.nome}!</h2>}
           <button className="btn btn-primary" onClick={() => (window.location.href = "http://localhost:8888")}>
