@@ -37,6 +37,8 @@ class App extends React.Component {
     this.apitecwebPOST = this.apitecwebPOST.bind(this);
     this.topArtists = this.topArtists.bind(this);
     this.login = this.login.bind(this);
+    this.playlist = this.playlist.bind(this);
+    this.getHashParams = this.getHashParams.bind(this)
   }
 
   handleTimeRangeChange = (event) => {
@@ -127,6 +129,32 @@ class App extends React.Component {
     });
   };
 
+  playlist = () => {
+    if (!this.state.token) {
+      console.log("Token não fornecido.");
+      return;
+      
+    }
+    $.ajax({
+      method: "GET",
+      dataType: "json",
+      url: `https://api.spotify.com/v1/me/playlists`,
+      headers: {
+        Authorization: `Bearer ${this.state.token}`,
+      },
+      success: (dados) => {
+        console.log(dados);
+        const total = dados.total;
+        this.setState({ total });
+      },
+      error: (xhr, status, error) => {
+        console.log(xhr);
+        console.log(status);
+        console.log(error);
+      },
+    });
+  }
+
   login = () => {
     if (!this.state.token) {
       console.log("Token não fornecido.");
@@ -141,6 +169,12 @@ class App extends React.Component {
       },
       success: (dados) => {
         console.log(dados);
+        const photo = dados.images && dados.images.length > 0 ? dados.images[0].url : null;
+        const seguidores = dados.followers.total;
+        const name = dados.display_name;
+        this.setState({ name });
+        this.setState({ photo });
+        this.setState({ seguidores });
       },
       error: (xhr, status, error) => {
         console.log(xhr);
@@ -229,6 +263,7 @@ class App extends React.Component {
   }
   render() {
     // Divide as capas em duas fileiras
+    
     const albumCoversRow1 = this.state.albumCovers.slice(0, 5);
     const albumCoversRow2 = this.state.albumCovers.slice(5, 10);
 
@@ -239,22 +274,34 @@ class App extends React.Component {
       <div className="App">
         <div className="header">
           <div>
-            <button className="login" onClick={() => { this.login(); this.controlarModal(); }}>Perfil</button>
-            {this.state.exibirModal&&<div className="quadro_log" onMouseLeave={this.controlarModal}>a</div>}
+            <button className="login" onClick={() => { this.login(); this.controlarModal(); this.playlist()}}>Perfil</button>
+            {this.state.exibirModal&&<div className="quadro_log" >
+              <img src={this.state.photo} alt="Foto de perfil" className="foto_perfil" />
+                <h1 className="text_profile">{this.state.name}</h1>
+                  <div>
+                    <h3 className="text_info">Seguidores: {this.state.seguidores}</h3>
+                    <h3 className="text_info">Playlists: {this.state.total}</h3>
+                  </div>
+                </div>}
           </div>
           <div className="title">
             <h1 className="title-text">TecWeb Songs</h1>
             <div className="logo-container">
               <img src="logo.png" alt="Logo" className="logo" />
             </div>
+            
+            
           </div>
+          
         </div>
+        {this.state.name && <h2>Olá, {this.state.name}!</h2>}
         <p className="texto">
           Feito na disciplina de Tecnologias Web, nosso site te mostra as suas músicas mais ouvidas no Spotify. Para
           isso, basta logar com sua conta e clicar no botão "Veja suas principais músicas".
         </p>
+
         <div className="buttons">
-          {this.state.nome && <h2>Olá, {this.state.nome}!</h2>}
+          
           <button className="btn btn-primary" onClick={() => (window.location.href = "http://localhost:8888")}>
             Logar com Spotify
           </button>
