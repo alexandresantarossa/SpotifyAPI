@@ -18,7 +18,7 @@ body {
   margin-right: 10px;
   margin-top: 10px;
   margin-bottom: 10px;
-  color: #fff;
+  color: #a1a1a1;
 }
 
 .quadro_log{
@@ -52,6 +52,12 @@ body {
   width:100px;
   height:100px;
   border-radius:50%;
+}
+
+.user-name{
+  color: #fff;
+  width: auto;
+
 }
 
 
@@ -94,7 +100,6 @@ body {
   display: flex;
   align-self: center;
   justify-content: center;
-  margin-left: 60px;
 }
 
 .btn-primary {
@@ -287,3 +292,18 @@ body {
   margin-left: 0px;
 }
 
+.seletor-tempo{
+  background-color: transparent;
+  color: white;
+  border-radius: 10px;
+  border-color: white;
+  padding: 5px;
+}
+
+.seletor-tempo option{
+  background-color: #212125;
+  color: #fff;
+  border-radius: 10px;
+  border-color: white;
+  padding: 5px;
+}

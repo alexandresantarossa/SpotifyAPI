@@ -31,6 +31,8 @@ class App extends React.Component {
       topArtists: [], // state para armazenar os artistas mais ouvidos
       artistCovers: [], // state para armazenar as capas dos artistas
       exibirModal: false, // state para controlar a exibição do modal
+      logado: false,
+      playlist: []
     };
 
     this.topTracksLorde = this.topTracksLorde.bind(this);
@@ -87,7 +89,6 @@ class App extends React.Component {
       success: (dados) => {
         const artistCovers = dados.artists.map((artist) => artist.images[0].url);
         this.setState({ artistCovers: artistCovers });
-        console.log(artistCovers);
       },
       error: (xhr, status, error) => {
         console.log(xhr);
@@ -116,7 +117,7 @@ class App extends React.Component {
       },
       success: (dados) => {
         this.setState({ topTracks: dados.items }); // atualiza o state com as principais músicas
-
+        
         // Obtém as capas dos álbuns
         const albumIds = dados.items.map((track) => track.album.id);
         this.getAlbumCovers(albumIds);
@@ -128,6 +129,60 @@ class App extends React.Component {
       },
     });
   };
+
+
+  get5tracks = () => {
+    const { timeRange } = this.state;
+    const url = `https://api.spotify.com/v1/me/top/tracks?time_range=${timeRange}&limit=5`;
+  
+    if (!this.state.token) {
+      console.log("Token não fornecido.");
+      return;
+    }
+  
+    $.ajax({
+      method: "GET",
+      dataType: "json",
+      url: url,
+      headers: {
+        Authorization: `Bearer ${this.state.token}`,
+      },
+      success: (dados) => {
+        const topTrackIds = dados.items.map((track) => track.id); // obtém os IDs das 5 principais músicas
+  
+        // Fazer a próxima requisição com os IDs das músicas
+        this.getRecomendation(topTrackIds);
+      },
+      error: (xhr, status, error) => {
+        console.log(xhr);
+        console.log(status);
+        console.log(error);
+      },
+    });
+  };
+  
+  getRecomendation = (trackIds) => {
+    const url = `https://api.spotify.com/v1/recommendations?limit=20&market=BR&seed_tracks=${trackIds.join(",")}`;
+    $.ajax({
+      method: "GET",
+      dataType: "json",
+      url: url,
+      headers: {
+        Authorization: `Bearer ${this.state.token}`,
+      },
+      success: (dados) => {
+        this.setState({ playlist: dados.tracks });
+        // Faça o que for necessário com os dados adicionais obtidos
+      },
+      error: (xhr, status, error) => {
+        console.log(xhr);
+        console.log(status);
+        console.log(error);
+      },
+    });
+  };
+  
+
 
   playlist = () => {
     if (!this.state.token) {
@@ -175,6 +230,7 @@ class App extends React.Component {
         this.setState({ name });
         this.setState({ photo });
         this.setState({ seguidores });
+        
       },
       error: (xhr, status, error) => {
         console.log(xhr);
@@ -183,6 +239,7 @@ class App extends React.Component {
       },
     });
   };
+
   getAlbumCovers = (albumIds) => {
     if (!this.state.token) {
       console.log("Token não fornecido.");
@@ -258,6 +315,11 @@ class App extends React.Component {
   controlarModal = () => {
     this.setState({exibirModal: !this.state.exibirModal})
   } 
+
+  setLogado = () => {
+    this.setState({logado: !this.state.logado})
+  } 
+
   qualtoken() {
     console.log(this.state.token);
   }
@@ -294,7 +356,7 @@ class App extends React.Component {
           </div>
           
         </div>
-        {this.state.name && <h2>Olá, {this.state.name}!</h2>}
+        {this.state.name && <h2 className="user-name">Olá, {this.state.name}!&nbsp;</h2>}
         <p className="texto">
           Feito na disciplina de Tecnologias Web, nosso site te mostra as suas músicas mais ouvidas no Spotify. Para
           isso, basta logar com sua conta e clicar no botão "Veja suas principais músicas".
@@ -305,26 +367,45 @@ class App extends React.Component {
           <button className="btn btn-primary" onClick={() => (window.location.href = "http://localhost:8888")}>
             Logar com Spotify
           </button>
-          <button className="btn btn-primary" onClick={this.topTracksLorde}>
-            Veja suas principais músicas
+          <button className="btn btn-primary" onClick={ () => {this.topArtists(); this.topTracksLorde();}}>
+            Veja suas estatísticas
           </button>
-          <button className="btn btn-primary" onClick={this.apitecwebPOST}>
-            Adicionar a base de dados
-          </button>
-          <button className="btn btn-primary" onClick={this.topArtists}>
-            Veja seus artistas mais ouvidos
+          <button className="btn btn-primary" onClick={this.get5tracks}>
+            Gerar sua playlists
           </button>
         </div>
         <div>
           <div className="select">
-            <label htmlFor="timeRange">Selecione o período de tempo:   </label>
-            <select id="timeRange" value={this.state.timeRange} onChange={this.handleTimeRangeChange}>
+            <label htmlFor="timeRange">Selecione o período de tempo:&nbsp;&nbsp;&nbsp;</label>
+            <select id="timeRange" value={this.state.timeRange} onChange={this.handleTimeRangeChange} className="seletor-tempo">
               <option value="long_term">All-Time</option>
               <option value="medium_term">6 meses</option>
               <option value="short_term">1 mês</option>
             </select>
           </div>
         </div>
+
+        {this.state.playlist.length > 0 && (
+          <div className="tracks">
+            <h2>Sua Playlist Personalizada:</h2>
+            <ol>
+              {this.state.playlist.map((track, index) => (
+                <li key={index}>
+                  {track.name} - {track.artists[0].name}
+
+                  <a
+                    href={`https://open.spotify.com/track/${track.id}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <div className="spotify-logo"></div>
+                  </a>
+                </li>
+              ))}
+            </ol>
+          </div>
+        )}
+
         {this.state.topTracks.length > 0 && (
           <div className="tracks">
             <h2>Suas principais músicas são:</h2>
@@ -411,7 +492,11 @@ class App extends React.Component {
             </div>
           </div>
         )}
+        
         <div className="credits">
+          <button className="btn btn-primary" onClick={this.apitecwebPOST}>
+              Salvar Dados
+          </button>
           <p>Powered by KNBS 💀</p>
           <p>We are not related to Spotify AB or any of it's partners in any way</p>
         </div>
