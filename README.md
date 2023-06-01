@@ -17,12 +17,14 @@ Sprint 1:
 - [x] 16/05 -> Permissão do Spotify
 
 Sprint 2:
-- [ ] 18/05 -> 2ª funcionalidade implementada
-- [ ] 23/05 -> Começar 3ª funcionalidade  
+- [x] 18/05 -> 2ª funcionalidade implementada
+- [x] 23/05 -> Começar 3ª funcionalidade  
 
 Sprint 3:
-- [ ] 25/05 -> 3ª funcionalidade implementada
+- [x] 25/05 -> 3ª funcionalidade implementada
 - [ ] 30/05 -> Deploy e ajustes finais
 
 
-- [ ] <b>31/05 -> Entrega final<b>
+- [x] <b>31/05 -> Entrega final<b>
+
+Link com o funcionamento do App: https://youtu.be/Y7pPPgMCSQk
